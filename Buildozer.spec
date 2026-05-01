@@ -1,27 +1,34 @@
-name: Build Android APK
+[app]
+# (str) Title of your application
+title = Exit 47
 
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch: # This adds a button so you can start the build manually
+# (str) Package name (no spaces or special characters)
+package.name = exit47
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# (str) Package domain (used for the internal ID)
+package.domain = com.hoyy
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+# (str) Source code where the main.py lives
+source.dir = .
 
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: stable
+# (list) Source files to include
+source.include_exts = py,png,jpg,kv,atlas
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-kivy-app
-          path: bin/*.apk
+# (str) Application versioning
+version = 1.0
+
+# (list) Application requirements
+requirements = python3,kivy
+
+# (str) Supported orientations
+orientation = landscape
+
+# (bool) Indicate if the application should be fullscreen
+fullscreen = 1
+
+# (list) Permissions (Left blank since you are offline)
+android.permissions = 
+
+[buildozer]
+# (int) Log level (2 provides more detail if it fails)
+log_level = 2
